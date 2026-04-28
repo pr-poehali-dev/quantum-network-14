@@ -3,26 +3,26 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
-const articles = [
+const categories = [
   {
-    title: "Искусство визуального сторителлинга",
-    category: "Дизайн",
-    image: "/visual-storytelling-design-article.jpg",
+    title: "Электроника и гаджеты",
+    category: "Категория",
+    image: "https://cdn.poehali.dev/projects/d28053a7-6fd8-4974-9318-7b4038dc7202/files/de5cefeb-01a5-4cc8-b5c4-44d2b7d846da.jpg",
   },
   {
-    title: "Как создать личный бренд онлайн",
-    category: "Стратегия",
-    image: "/personal-branding-digital-marketing.jpg",
+    title: "Косметика и уход",
+    category: "Категория",
+    image: "https://cdn.poehali.dev/projects/d28053a7-6fd8-4974-9318-7b4038dc7202/files/22f8c023-0287-46fb-a1c0-57b6d47028d5.jpg",
   },
   {
-    title: "Тренды типографики 2025",
-    category: "Типографика",
-    image: "/typography-trends-modern-fonts.jpg",
+    title: "Одежда и аксессуары",
+    category: "Категория",
+    image: "https://cdn.poehali.dev/projects/d28053a7-6fd8-4974-9318-7b4038dc7202/files/238c8047-c0bc-4dd5-b489-f19d2d7818a3.jpg",
   },
   {
-    title: "Минимализм в дизайне портфолио",
-    category: "Вдохновение",
-    image: "/placeholder.svg?height=200&width=300",
+    title: "Товары для дома",
+    category: "Категория",
+    image: "https://cdn.poehali.dev/projects/d28053a7-6fd8-4974-9318-7b4038dc7202/files/e218a52a-743c-460f-8192-e43eaf2a3a9d.jpg",
   },
 ]
 
@@ -43,11 +43,11 @@ export function InsightsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Статьи
+          Категории товаров
         </motion.p>
 
         <div className="divide-y divide-border">
-          {articles.map((article, i) => (
+          {categories.map((item, i) => (
             <motion.a
               key={i}
               href="#"
@@ -62,9 +62,9 @@ export function InsightsSection() {
               data-clickable
             >
               <div className="flex-1">
-                <span className="text-xs text-muted-foreground uppercase tracking-wider">{article.category}</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">{item.category}</span>
                 <h3 className="font-serif text-xl md:text-2xl text-foreground mt-1 group-hover:text-primary transition-colors">
-                  {article.title}
+                  {item.title}
                 </h3>
               </div>
               <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
@@ -72,7 +72,6 @@ export function InsightsSection() {
           ))}
         </div>
 
-        {/* Floating hover image */}
         <AnimatePresence>
           {hoveredIndex !== null && (
             <motion.div
@@ -88,8 +87,8 @@ export function InsightsSection() {
               transition={{ duration: 0.2 }}
             >
               <img
-                src={articles[hoveredIndex].image || "/placeholder.svg"}
-                alt={articles[hoveredIndex].title}
+                src={categories[hoveredIndex].image}
+                alt={categories[hoveredIndex].title}
                 className="w-full h-auto"
               />
             </motion.div>

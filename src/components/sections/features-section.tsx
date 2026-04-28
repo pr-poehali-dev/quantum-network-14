@@ -1,58 +1,58 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
-function TypeTester() {
-  const [scale, setScale] = useState(1)
+function PriceAnimation() {
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setScale((prev) => (prev === 1 ? 1.5 : 1))
+      setShow((prev) => !prev)
     }, 2000)
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-full gap-2">
       <motion.span
-        className="font-serif text-6xl md:text-8xl text-foreground"
-        animate={{ scale }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="font-serif text-4xl md:text-5xl text-foreground"
+        animate={{ scale: show ? 1.15 : 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        Aa
+        {show ? "−40%" : "Опт"}
       </motion.span>
+      <span className="text-sm text-muted-foreground">ниже рынка</span>
     </div>
   )
 }
 
-function LayoutAnimation() {
-  const [layout, setLayout] = useState(0)
+function DeliveryAnimation() {
+  const [step, setStep] = useState(0)
+  const steps = ["📦 Закупка", "✈️ Доставка", "🏪 У вас"]
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLayout((prev) => (prev + 1) % 3)
-    }, 2500)
+      setStep((prev) => (prev + 1) % steps.length)
+    }, 1800)
     return () => clearInterval(interval)
   }, [])
 
-  const layouts = ["grid-cols-2 grid-rows-2", "grid-cols-3 grid-rows-1", "grid-cols-1 grid-rows-3"]
-
   return (
-    <div className="h-full p-4 flex items-center justify-center">
-      <motion.div className={`grid ${layouts[layout]} gap-2 w-full max-w-[140px]`} layout>
-        {[1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="bg-primary/20 rounded-md min-h-[30px]"
-            layout
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          />
-        ))}
+    <div className="h-full flex items-center justify-center">
+      <motion.div
+        key={step}
+        className="text-2xl md:text-3xl font-serif text-foreground text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+      >
+        {steps[step]}
       </motion.div>
     </div>
   )
 }
 
-function SpeedIndicator() {
+function RussiaIndicator() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -62,14 +62,14 @@ function SpeedIndicator() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4">
-      <span className="text-3xl md:text-4xl font-sans font-medium text-foreground">100ms</span>
-      <span className="text-sm text-muted-foreground">Загрузка</span>
+      <span className="text-3xl md:text-4xl font-sans font-medium text-foreground">🇷🇺</span>
+      <span className="text-sm text-muted-foreground">Вся Россия</span>
       <div className="w-full max-w-[120px] h-1.5 bg-foreground/10 rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-primary rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.1 }}
+          transition={{ duration: 1.2 }}
         />
       </div>
     </div>
@@ -86,11 +86,10 @@ export function FeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Возможности
+          Преимущества
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Typography Card */}
           <motion.div
             className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
             initial={{ opacity: 0, y: 30 }}
@@ -102,15 +101,14 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <TypeTester />
+              <PriceAnimation />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Типографика</h3>
-              <p className="text-muted-foreground text-sm mt-1">Красивые шрифты, которые идеально масштабируются.</p>
+              <h3 className="font-serif text-xl text-foreground">Выгодные цены</h3>
+              <p className="text-muted-foreground text-sm mt-1">Закупаем напрямую у производителей — без лишних наценок.</p>
             </div>
           </motion.div>
 
-          {/* Layouts Card */}
           <motion.div
             className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
             initial={{ opacity: 0, y: 30 }}
@@ -122,15 +120,14 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <LayoutAnimation />
+              <DeliveryAnimation />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Макеты</h3>
-              <p className="text-muted-foreground text-sm mt-1">Гибкие сетки, которые адаптируются под контент.</p>
+              <h3 className="font-serif text-xl text-foreground">Под ключ</h3>
+              <p className="text-muted-foreground text-sm mt-1">Берём на себя закупку, таможню и доставку до вашего склада.</p>
             </div>
           </motion.div>
 
-          {/* Speed Card */}
           <motion.div
             className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
             initial={{ opacity: 0, y: 30 }}
@@ -142,11 +139,11 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <SpeedIndicator />
+              <RussiaIndicator />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Скорость</h3>
-              <p className="text-muted-foreground text-sm mt-1">Молниеносная загрузка страниц для ваших гостей.</p>
+              <h3 className="font-serif text-xl text-foreground">По всей России</h3>
+              <p className="text-muted-foreground text-sm mt-1">Доставляем в любой город — от Москвы до Владивостока.</p>
             </div>
           </motion.div>
         </div>

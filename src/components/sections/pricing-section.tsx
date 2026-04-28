@@ -3,18 +3,29 @@ import { Check } from "lucide-react"
 
 const plans = [
   {
-    name: "Старт",
-    price: "1 200",
-    period: " руб/мес",
-    description: "Для личного портфолио",
-    features: ["5 страниц", "Свой домен", "Базовая аналитика", "Поддержка по email"],
+    name: "Малый опт",
+    price: "от 50 000",
+    period: " руб",
+    description: "Для старта и тестирования",
+    features: [
+      "Минимальный заказ от 50 тыс. руб.",
+      "Доставка по России",
+      "Сертификаты и документы",
+      "Поддержка менеджера",
+    ],
   },
   {
-    name: "Про",
-    price: "2 900",
-    period: " руб/мес",
-    description: "Для растущих авторов",
-    features: ["Безлимит страниц", "Приоритет поддержки", "Расширенная аналитика", "Свой брендинг", "Работа в команде"],
+    name: "Крупный опт",
+    price: "от 300 000",
+    period: " руб",
+    description: "Для постоянных партнёров",
+    features: [
+      "Минимальный заказ от 300 тыс. руб.",
+      "Персональный менеджер",
+      "Приоритетная доставка",
+      "Индивидуальные цены",
+      "Отсрочка платежа",
+    ],
     popular: true,
   },
 ]
@@ -29,8 +40,8 @@ export function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-serif text-foreground">Простые и понятные цены</h2>
-          <p className="text-muted-foreground mt-4 max-w-md mx-auto">Начните бесплатно, платите когда готовы.</p>
+          <h2 className="text-3xl md:text-5xl font-serif text-foreground">Условия сотрудничества</h2>
+          <p className="text-muted-foreground mt-4 max-w-md mx-auto">Гибкие условия для бизнеса любого масштаба.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
@@ -46,7 +57,7 @@ export function PricingSection() {
             >
               {plan.popular && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime text-foreground text-xs font-medium px-3 py-1 rounded-full">
-                  Популярный
+                  Выгоднее
                 </span>
               )}
 
@@ -75,7 +86,7 @@ export function PricingSection() {
                     : "bg-secondary text-foreground hover:bg-accent/30"
                 }`}
               >
-                Начать
+                Оставить заявку
               </button>
             </motion.div>
           ))}
